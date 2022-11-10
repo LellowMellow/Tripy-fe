@@ -6,6 +6,7 @@ import Button from "../../tripy-ui/Button";
 import styled from "styled-components";
 import Lottie from "lottie-react";
 import lottie404 from "../../assets/images/404.json";
+import { useNavigate } from "react-router-dom";
 
 const FooterWrapper = styled.div`
   position: fixed;
@@ -13,6 +14,12 @@ const FooterWrapper = styled.div`
 `;
 
 const NotFound = () => {
+  const navigate = useNavigate();
+
+  const onClickButton = () => {
+    navigate(`/`);
+  };
+
   return (
     <>
       <Layout>
@@ -23,7 +30,7 @@ const NotFound = () => {
           이런! 존재하지 않는 페이지네요
         </Typography>
         <FooterWrapper>
-          <Button>첫 화면으로 돌아가기</Button>
+          <Button onClick={() => onClickButton()}>첫 화면으로 돌아가기</Button>
         </FooterWrapper>
       </Layout>
     </>
