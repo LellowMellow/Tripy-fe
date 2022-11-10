@@ -4,6 +4,7 @@ const colors = {
   litegray: "#D9D9D9",
   black: "#1D1D1F",
   white: "#FFFFFF",
+  purple: "#5E40D4",
 };
 
 const flex = {
