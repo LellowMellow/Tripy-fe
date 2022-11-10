@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import lottieLogo from "../../assets/images/logo.json";
 
 const Wrapper = styled(Flex)`
-  width: 100%;
+  width: 390px;
   height: 80px;
   padding-top: 30px;
   position: fixed;
