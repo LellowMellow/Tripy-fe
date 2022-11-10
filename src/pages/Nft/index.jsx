@@ -6,6 +6,7 @@ import Button from "../../tripy-ui/Button";
 import styled from "styled-components";
 import { useNavigate,useParams } from "react-router-dom";
 import Title from "./components/title";
+import Header from "../../tripy-ui/Header";
 
 
 const FooterWrapper = styled.div`
@@ -48,8 +49,8 @@ const Nft = () => {
 return (
   <>
     <Layout>
-      <Margin height={80} />
-      <Margin height={38} />
+      <Header title={"Tripy"} color={"purple"}/>
+      <Margin height={118} />
       <NftWrapper>
         <NftImg src={imageUrl} />
       </NftWrapper>

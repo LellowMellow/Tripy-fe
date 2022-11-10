@@ -7,6 +7,8 @@ import styled from "styled-components";
 import { useNavigate,useParams } from "react-router-dom";
 import Title from "./../Nft/components/title";
 import Description from "./../Nft/components/description";
+import Header from "../../tripy-ui/Header";
+
 const FooterWrapper = styled.div`
   position: fixed;
   bottom: 33px;
@@ -43,6 +45,7 @@ const NftDetail = () => {
 return (
   <>
     <Layout>
+    <Header title={"NFT 상세정보"} color={"black"}/>
       <Margin height={80} />
       <Margin height={38} />
       <NftWrapper>
