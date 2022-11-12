@@ -2,11 +2,13 @@ import React from "react";
 import Layout from "../../tripy-ui/Layout/index";
 import Typography from "../../tripy-ui/Typography";
 import Margin from "../../tripy-ui/Margin";
+import Flex from "../../tripy-ui/Flex";
 import Button from "../../tripy-ui/Button";
 import styled from "styled-components";
 import Header from "../../tripy-ui/Header";
 import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
+import { BsCameraVideoOffFill } from "react-icons/bs";
 
 const QrWrapper = styled.div`
   width: 333px;
@@ -14,6 +16,21 @@ const QrWrapper = styled.div`
   border-radius: 18px;
   overflow: hidden;
   background-color: #d9d9d9;
+`;
+
+const IconWrapper = styled.div`
+  position: fixed;
+  width: 333px;
+  height: 333px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CameraIcon = styled(BsCameraVideoOffFill)`
+  color: #727272;
+  font-size: 32px;
 `;
 
 const FooterWrapper = styled.div`
@@ -34,6 +51,13 @@ const QrReading = () => {
         <Header title={"QR 촬영하기"} color={"black"} />
         <Margin height={118} />
         <QrWrapper>
+          <IconWrapper>
+            <CameraIcon />
+            <Margin height={15} />
+            <Typography t16 color={"gray"}>
+              카메라 권한을 확인해주세요
+            </Typography>
+          </IconWrapper>
           <QrReader
             constraints={{ facingMode: "" }}
             videoStyle={{
