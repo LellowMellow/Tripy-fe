@@ -13,6 +13,7 @@ const QrWrapper = styled.div`
   height: 333px;
   border-radius: 18px;
   overflow: hidden;
+  background-color: #d9d9d9;
 `;
 
 const FooterWrapper = styled.div`
