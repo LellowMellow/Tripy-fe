@@ -9,7 +9,7 @@ import Toast from "../Toast";
 
 const Wrapper = styled(Flex)`
   width: 390px;
-  height: 80px;
+  height: 95px;
   padding-top: 30px;
   position: fixed;
   top: 0;

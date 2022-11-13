@@ -6,7 +6,6 @@ const Width = styled.div`
   min-height: 844px;
   max-width: 390px;
   margin: 0 auto;
-  padding-bottom: 20px;
   width: 100%;
   background-color: white;
 `;
