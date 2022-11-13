@@ -8,6 +8,7 @@ import Header from "../../tripy-ui/Header";
 import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
 import { BsCameraVideoOffFill } from "react-icons/bs";
+import { motion } from "framer-motion";
 
 const QrWrapper = styled.div`
   width: 333px;
@@ -46,38 +47,45 @@ const QrReading = () => {
 
   return (
     <>
-      <Layout>
-        <Header title={"QR 촬영하기"} color={"black"} />
-        <Margin height={118} />
-        <QrWrapper>
-          <IconWrapper>
-            <CameraIcon />
-            <Margin height={15} />
-            <Typography t16 color={"gray"}>
-              카메라 권한을 확인해주세요
-            </Typography>
-          </IconWrapper>
-          <QrReader
-            constraints={{ facingMode: "" }}
-            videoStyle={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-          />
-        </QrWrapper>
-        <Margin height={25} />
-        <Typography t20 color={"black"}>
-          QR 코드를 촬영해주세요
-        </Typography>
-        <Margin height={11} />
-        <Typography t16 color={"gray"}>
-          원활한 인식을 위해 카메라 렌즈를 닦아주세요.
-        </Typography>
-        <FooterWrapper>
-          <Button onClick={() => onClickButton()}>메인으로 돌아가기</Button>
-        </FooterWrapper>
-      </Layout>
+      <motion.div
+        initial={{ x: 0, y: 0, opacity: 0 }}
+        animate={{ x: 0, y: 0, opacity: 1 }}
+        exit={{ x: 0, y: 0, opacity: 0 }}
+        transition={{ ease: "easeOut", duration: 1 }}
+      >
+        <Layout>
+          <Header title={"QR 촬영하기"} color={"black"} />
+          <Margin height={118} />
+          <QrWrapper>
+            <IconWrapper>
+              <CameraIcon />
+              <Margin height={15} />
+              <Typography t16 color={"gray"}>
+                카메라 권한을 확인해주세요
+              </Typography>
+            </IconWrapper>
+            <QrReader
+              constraints={{ facingMode: "" }}
+              videoStyle={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          </QrWrapper>
+          <Margin height={25} />
+          <Typography t20 color={"black"}>
+            QR 코드를 촬영해주세요
+          </Typography>
+          <Margin height={11} />
+          <Typography t16 color={"gray"}>
+            원활한 인식을 위해 카메라 렌즈를 닦아주세요.
+          </Typography>
+          <FooterWrapper>
+            <Button onClick={() => onClickButton()}>메인으로 돌아가기</Button>
+          </FooterWrapper>
+        </Layout>
+      </motion.div>
     </>
   );
 };
