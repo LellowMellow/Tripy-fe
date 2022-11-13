@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Margin from "../Margin";
 import Lottie from "lottie-react";
 import lottieLogo from "../../assets/images/logo.json";
+import Toast from "../Toast";
 
 const Wrapper = styled(Flex)`
   width: 390px;
@@ -58,6 +59,9 @@ const Header = (props) => {
   const moveToMain = () => {
     navigate("/main");
   };
+  const onClickProfile = () => {
+    Toast("현재 지원하지 않는 기능입니다.");
+  };
   return (
     <Wrapper zIndex={props.zIndex}>
       <Flex align={"center"}>
@@ -71,7 +75,7 @@ const Header = (props) => {
         </Typography>
       </Flex>
       <Flex align={"center"}>
-        <Profile>
+        <Profile onClick={() => onClickProfile()}>
           <ProfileHead />
           <ProfileBody />
         </Profile>
