@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../../tripy-ui/Layout/index";
 import Typography from "../../tripy-ui/Typography";
 import Margin from "../../tripy-ui/Margin";
-import Flex from "../../tripy-ui/Flex";
 import Button from "../../tripy-ui/Button";
 import styled from "styled-components";
 import Header from "../../tripy-ui/Header";
