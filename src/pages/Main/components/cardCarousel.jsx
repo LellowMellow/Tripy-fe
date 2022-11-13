@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slick.css";
 import styled from "styled-components";
+import Toast from "../../../tripy-ui/Toast";
 
 const CarouselWrapper = styled.div`
   width: 100%;
@@ -27,6 +28,10 @@ const Card = styled.div`
 `;
 
 const CardCarousel = () => {
+  const onClickCard = () => {
+    Toast("현재 지원하지 않는 기능입니다.");
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -53,13 +58,13 @@ const CardCarousel = () => {
   return (
     <CarouselWrapper>
       <Slider {...settings}>
-        <CardWrapper>
+        <CardWrapper onClick={() => onClickCard()}>
           <Card></Card>
         </CardWrapper>
-        <CardWrapper>
+        <CardWrapper onClick={() => onClickCard()}>
           <Card></Card>
         </CardWrapper>
-        <CardWrapper>
+        <CardWrapper onClick={() => onClickCard()}>
           <Card></Card>
         </CardWrapper>
       </Slider>
