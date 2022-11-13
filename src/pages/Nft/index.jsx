@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useCallback, useRef, useEffect } from "react";
+import ReactCanvasConfetti from "react-canvas-confetti";
 import Layout from "../../tripy-ui/Layout/index";
 import Typography from "../../tripy-ui/Typography";
 import Margin from "../../tripy-ui/Margin";
@@ -8,6 +9,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import Title from "./components/title";
 import Header from "../../tripy-ui/Header";
+
+const canvasStyles = {
+  position: "fixed",
+  pointerEvents: "none",
+  width: "100%",
+  height: "100%",
+  top: 0,
+  left: 0,
+  particleCount: 10,
+  colors: "#FFFFFF",
+};
 
 const FooterWrapper = styled.div`
   position: fixed;
@@ -37,6 +49,52 @@ const Nft = () => {
   const { nftid } = useParams();
   const imageUrl = `${process.env.PUBLIC_URL}/nft${nftid}.png`;
 
+  const refAnimationInstance = useRef(null);
+
+  const getInstance = useCallback((instance) => {
+    refAnimationInstance.current = instance;
+  }, []);
+
+  const makeShot = useCallback((particleRatio, opts) => {
+    refAnimationInstance.current &&
+      refAnimationInstance.current({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(100 * particleRatio),
+        shapes: "square",
+        colors: ["#5E40D4", "#9B71F9"],
+      });
+  }, []);
+
+  useEffect(() => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55,
+    });
+
+    makeShot(0.2, {
+      spread: 60,
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45,
+    });
+  }, [makeShot]);
+
   const onClickMainButton = () => {
     navigate(`/main`);
   };
@@ -54,12 +112,12 @@ const Nft = () => {
         transition={{ ease: "easeOut", duration: 1 }}
       >
         <Layout>
+          <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
           <Header title={"Tripy"} color={"purple"} />
           <Margin height={118} />
           <NftWrapper>
             <NftImg src={imageUrl} />
           </NftWrapper>
-
           <Margin height={22} />
           <TextWrapper>
             <Typography t24>
@@ -70,7 +128,6 @@ const Nft = () => {
           <TextWrapper>
             <Typography t16>축하드려요! 새로운 NFT를 획득하셨어요.</Typography>
           </TextWrapper>
-
           <FooterWrapper>
             <Button
               onClick={() => {
