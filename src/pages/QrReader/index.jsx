@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { QrReader } from "react-qr-reader";
 import { BsCameraVideoOffFill } from "react-icons/bs";
 import { motion } from "framer-motion";
+import Toast from "./../../tripy-ui/Toast";
+import {buyNftTokenContract} from "../../web3Config";
 
 const QrWrapper = styled.div`
   width: 333px;
@@ -38,12 +40,42 @@ const FooterWrapper = styled.div`
   bottom: 33px;
 `;
 
-const QrReading = () => {
+const QrReading = ({account}) => {
   const navigate = useNavigate();
+  let once  = true; //qr 인식을 한다면 한번만 하게 동작.
+
+  const buyNft = async (tokenId,tokentype,tokenPrice) => {
+    try {
+      if (!account) return;
+
+      const response = await buyNftTokenContract.methods
+        .purchaseAnimalToken(tokenId)
+        .send({ from: account, value: tokenPrice });
+
+        navigate(`/nft/${tokentype}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const onClickButton = () => {
     navigate(`/main`);
   };
+
+  const qrScan = (result, error) => {
+    if (once&&result){
+      once = false;
+      Toast("감지되었습니다.");
+      const data = String(result.text).split("/");
+      const tokenId = data[3];
+      const tokentype = data[4];
+      const tokenPrice = data[5];
+      buyNft(tokenId,tokentype,tokenPrice);
+    }
+    else{
+      //console.log(error);
+    }
+  }
 
   return (
     <>
@@ -65,13 +97,14 @@ const QrReading = () => {
               </Typography>
             </IconWrapper>
             <QrReader
-              constraints={{ facingMode: "" }}
-              videoStyle={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
+                onResult={(result, error) => qrScan(result, error)}
+                constraints={{ facingMode: "" }}
+                videoStyle={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
+              />
           </QrWrapper>
           <Margin height={25} />
           <Typography t20 color={"black"}>

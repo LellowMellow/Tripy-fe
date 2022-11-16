@@ -6,9 +6,9 @@ import Button from "../../tripy-ui/Button";
 import Header from "../../tripy-ui/Header";
 import styled from "styled-components";
 import CardCarousel from "./components/cardCarousel";
-import NftCard from "./components/nftCard";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import NftCards from "./components/nftCards";
 
 const TextWrapper = styled.div`
   width: 390px;
@@ -23,12 +23,29 @@ const FooterWrapper = styled.div`
   bottom: 33px;
 `;
 
-const Main = () => {
+const Main = ({account,setAccount}) => {
   const navigate = useNavigate();
-
-  const moveToQrReading = () => {
+ 
+  function moveToQrReading() {
     navigate(`/qr-reader`);
+  }
+
+  const getAccount = async () => {
+    try {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setAccount(accounts[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+
+  React.useEffect(() => {
+    getAccount();    
+  }, [account]);
 
   return (
     <>
@@ -58,9 +75,7 @@ const Main = () => {
             </Typography>
           </TextWrapper>
           <Margin height={16} />
-          <NftCard />
-          <NftCard />
-          <NftCard />
+          <NftCards account={account}/>
           <Margin height={100} />
           <FooterWrapper>
             <Button onClick={() => moveToQrReading()}>QR 촬영하기</Button>
