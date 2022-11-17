@@ -10,7 +10,8 @@ import { QrReader } from "react-qr-reader";
 import { BsCameraVideoOffFill } from "react-icons/bs";
 import { motion } from "framer-motion";
 import Toast from "./../../tripy-ui/Toast";
-import {buyNftTokenContract} from "../../web3Config";
+import { buyNftTokenContract } from "../../web3Config";
+import ReactLoading from "react-loading";
 
 const QrWrapper = styled.div`
   width: 333px;
@@ -40,19 +41,19 @@ const FooterWrapper = styled.div`
   bottom: 33px;
 `;
 
-const QrReading = ({account}) => {
+const QrReading = ({ account }) => {
   const navigate = useNavigate();
-  let once  = true; //qr 인식을 한다면 한번만 하게 동작.
+  const [loading, setLoading] = React.useState(false);
 
-  const buyNft = async (tokenId,tokentype,tokenPrice) => {
+  const buyNft = async (tokenId, tokentype, tokenPrice) => {
     try {
       if (!account) return;
 
       const response = await buyNftTokenContract.methods
-        .purchaseAnimalToken(tokenId)
+        .purchaseToken(tokenId)
         .send({ from: account, value: tokenPrice });
 
-        navigate(`/nft/${tokentype}`);
+      navigate(`/nft/${tokentype}`);
     } catch (error) {
       console.error(error);
     }
@@ -63,19 +64,18 @@ const QrReading = ({account}) => {
   };
 
   const qrScan = (result, error) => {
-    if (once&&result){
-      once = false;
+    if (result) {
       Toast("감지되었습니다.");
+      setLoading((cur) => !cur);
       const data = String(result.text).split("/");
       const tokenId = data[3];
       const tokentype = data[4];
       const tokenPrice = data[5];
-      buyNft(tokenId,tokentype,tokenPrice);
-    }
-    else{
+      buyNft(tokenId, tokentype, tokenPrice);
+    } else {
       //console.log(error);
     }
-  }
+  };
 
   return (
     <>
@@ -88,35 +88,58 @@ const QrReading = ({account}) => {
         <Layout>
           <Header title={"QR 촬영하기"} color={"black"} />
           <Margin height={118} />
-          <QrWrapper>
-            <IconWrapper>
-              <CameraIcon />
-              <Margin height={15} />
-              <Typography t16 color={"gray"}>
-                카메라 권한을 확인해주세요
-              </Typography>
-            </IconWrapper>
-            <QrReader
-                onResult={(result, error) => qrScan(result, error)}
-                constraints={{ facingMode: "" }}
-                videoStyle={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                }}
+          {loading ? (
+            <>
+              <ReactLoading
+                type={"spokes"}
+                color={"#000000"}
+                height={"333px"}
+                width={"333px"}
               />
-          </QrWrapper>
-          <Margin height={25} />
-          <Typography t20 color={"black"}>
-            QR 코드를 촬영해주세요
-          </Typography>
-          <Margin height={11} />
-          <Typography t16 color={"gray"}>
-            원활한 인식을 위해 카메라 렌즈를 닦아주세요.
-          </Typography>
-          <FooterWrapper>
-            <Button onClick={() => onClickButton()}>메인으로 돌아가기</Button>
-          </FooterWrapper>
+              <Margin height={25} />
+              <Typography t20 color={"black"}>
+                QR 코드를 인식했습니다.
+              </Typography>
+              <Margin height={11} />
+              <Typography t16 color={"gray"}>
+                잠시만 기다려 주세요.
+              </Typography>
+            </>
+          ) : (
+            <>
+              <QrWrapper>
+                <IconWrapper>
+                  <CameraIcon />
+                  <Margin height={15} />
+                  <Typography t16 color={"gray"}>
+                    카메라 권한을 확인해주세요
+                  </Typography>
+                </IconWrapper>
+                <QrReader
+                  onResult={(result, error) => qrScan(result, error)}
+                  constraints={{ facingMode: "" }}
+                  videoStyle={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </QrWrapper>
+              <Margin height={25} />
+              <Typography t20 color={"black"}>
+                QR 코드를 촬영해주세요
+              </Typography>
+              <Margin height={11} />
+              <Typography t16 color={"gray"}>
+                원활한 인식을 위해 카메라 렌즈를 닦아주세요.
+              </Typography>
+              <FooterWrapper>
+                <Button onClick={() => onClickButton()}>
+                  메인으로 돌아가기
+                </Button>
+              </FooterWrapper>
+            </>
+          )}
         </Layout>
       </motion.div>
     </>

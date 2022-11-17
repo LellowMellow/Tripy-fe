@@ -23,9 +23,9 @@ const FooterWrapper = styled.div`
   bottom: 33px;
 `;
 
-const Main = ({account,setAccount}) => {
+const Main = ({ account, setAccount }) => {
   const navigate = useNavigate();
- 
+
   function moveToQrReading() {
     navigate(`/qr-reader`);
   }
@@ -44,7 +44,7 @@ const Main = ({account,setAccount}) => {
   };
 
   React.useEffect(() => {
-    getAccount();    
+    getAccount();
   }, [account]);
 
   return (
@@ -75,7 +75,7 @@ const Main = ({account,setAccount}) => {
             </Typography>
           </TextWrapper>
           <Margin height={16} />
-          <NftCards account={account}/>
+          <NftCards account={account} />
           <Margin height={100} />
           <FooterWrapper>
             <Button onClick={() => moveToQrReading()}>QR 촬영하기</Button>
