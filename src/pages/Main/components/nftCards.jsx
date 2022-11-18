@@ -1,6 +1,7 @@
 import React from "react";
 import { getNftTokenContract } from "../../../web3Config";
 import NftCard from "./nftCard";
+import Typography from "../../../tripy-ui/Typography";
 
 const NftCards = ({ account }) => {
   const [nfts, setNfts] = React.useState([]);
@@ -45,7 +46,10 @@ const NftCards = ({ account }) => {
           return <NftCard key={i} Type={nft.Type} />;
         })
       ) : (
-        <></>
+        <>
+          <Typography>소유하고 있는 NFT가 없습니다.</Typography>
+          <Typography>여행을 다니면서 NFT를 찾아보세요!</Typography>
+        </>
       )}
     </>
   );
