@@ -60,7 +60,8 @@ const Header = (props) => {
     navigate("/main");
   };
   const onClickProfile = () => {
-    Toast("현재 지원하지 않는 기능입니다.");
+    navigate("/mint");
+    //Toast("현재 지원하지 않는 기능입니다.");
   };
   return (
     <Wrapper zIndex={props.zIndex}>
