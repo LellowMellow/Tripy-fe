@@ -1,7 +1,9 @@
 import React from "react";
 import { getNftTokenContract } from "../../../web3Config";
 import NftCard from "./nftCard";
+import Margin from "../../../tripy-ui/Margin";
 import Typography from "../../../tripy-ui/Typography";
+import { FiAlertCircle } from "react-icons/fi";
 
 const NftCards = ({ account }) => {
   const [nfts, setNfts] = React.useState([]);
@@ -47,8 +49,13 @@ const NftCards = ({ account }) => {
         })
       ) : (
         <>
-          <Typography>소유하고 있는 NFT가 없습니다.</Typography>
-          <Typography>여행을 다니면서 NFT를 찾아보세요!</Typography>
+          <Margin height={15} />
+          <FiAlertCircle size={30} color={"#727272"} />
+          <Margin height={15} />
+          <Typography color={"gray"}>소유하고 있는 NFT가 없습니다.</Typography>
+          <Typography color={"gray"}>
+            여행을 다니면서 NFT를 찾아보세요!
+          </Typography>
         </>
       )}
     </>
