@@ -91,8 +91,8 @@ const QrReading = ({ account }) => {
           {loading ? (
             <>
               <ReactLoading
-                type={"spokes"}
-                color={"#000000"}
+                type={"bubbles"}
+                color={"#5E40D4"}
                 height={"333px"}
                 width={"333px"}
               />

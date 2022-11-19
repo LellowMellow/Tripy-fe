@@ -4,7 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./slick.css";
 import styled from "styled-components";
-import Toast from "../../../tripy-ui/Toast";
+import image1 from "../../../assets/images/main1.png";
+import image2 from "../../../assets/images/main2.png";
+import image3 from "../../../assets/images/main3.png";
+import Typography from "../../../tripy-ui/Typography";
 
 const CarouselWrapper = styled.div`
   width: 100%;
@@ -16,7 +19,7 @@ const CardWrapper = styled.div`
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 `;
 
-const Card = styled.div`
+const Card = styled.img`
   width: 333px;
   height: 203px;
   margin-bottom: 22px;
@@ -24,14 +27,19 @@ const Card = styled.div`
   border: none;
   border-radius: 18px;
   overflow: hidden;
-  background-color: #d9d9d9;
+  filter: brightness(60%);
+  z-index: 0;
+`;
+
+const TextWrapper = styled.div`
+  margin-top: 130px;
+  margin-left: 55px;
+  border: none;
+  position: fixed;
+  z-index: 10;
 `;
 
 const CardCarousel = () => {
-  const onClickCard = () => {
-    Toast("현재 지원하지 않는 기능입니다.");
-  };
-
   const settings = {
     dots: true,
     infinite: true,
@@ -58,14 +66,38 @@ const CardCarousel = () => {
   return (
     <CarouselWrapper>
       <Slider {...settings}>
-        <CardWrapper onClick={() => onClickCard()}>
-          <Card></Card>
+        <CardWrapper>
+          <TextWrapper>
+            <Typography t20 color={"white"}>
+              인하대학교
+            </Typography>
+            <Typography t16 color={"litegray"}>
+              정석학술정보관
+            </Typography>
+          </TextWrapper>
+          <Card src={image1} />
         </CardWrapper>
-        <CardWrapper onClick={() => onClickCard()}>
-          <Card></Card>
+        <CardWrapper>
+          <TextWrapper>
+            <Typography t20 color={"white"}>
+              인하대학교
+            </Typography>
+            <Typography t16 color={"litegray"}>
+              5호관과 60주년
+            </Typography>
+          </TextWrapper>
+          <Card src={image2} />
         </CardWrapper>
-        <CardWrapper onClick={() => onClickCard()}>
-          <Card></Card>
+        <CardWrapper>
+          <TextWrapper>
+            <Typography t20 color={"white"}>
+              인하대학교
+            </Typography>
+            <Typography t16 color={"litegray"}>
+              인경호
+            </Typography>
+          </TextWrapper>
+          <Card src={image3} />
         </CardWrapper>
       </Slider>
     </CarouselWrapper>
